@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawaii Pomodoro Timer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f7ebd4; /* Pastel yellow background */
+        }
+
+        #timer {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ff7f50; /* Coral text color */
+        }
+
+        #startBtn, #resetBtn {
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #ff7f50; /* Coral button color */
+            color: #fff; /* White button text color */
+            border: none;
+            margin: 5px;
+        }
+
+        #kawaii-icon {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="timer">25:00</div>
+<img id="kawaii-icon" src="kawaii_icon.png" alt="Kawaii Pomodoro Icon">
+<button id="startBtn" onclick="startTimer()">Start</button>
+<button id="resetBtn" onclick="resetTimer()">Reset</button>
+
+<script>
+    let timer;
+    let minutes = 25;
+    let seconds = 0;
+    let isTimerRunning = false;
+
+    function startTimer() {
+        if (!isTimerRunning) {
+            isTimerRunning = true;
+            timer = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        if (minutes === 0 && seconds === 0) {
+            clearInterval(timer);
+            isTimerRunning = false;
+            alert("Time's up! Take a break.");
+        } else {
+            if (seconds === 0) {
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+
+            document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        isTimerRunning = false;
+        minutes = 25;
+        seconds = 0;
+        document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+</script>
+
+</body>
+</html>
